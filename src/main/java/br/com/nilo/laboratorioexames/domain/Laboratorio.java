@@ -14,8 +14,6 @@ public class Laboratorio extends AbstractEntity {
 
 	private String endereco;
 
-	private Integer status;
-
 	@ManyToMany(mappedBy = "laboratorios")
 	@JsonInclude(Include.NON_NULL)
 	private List<Exame> exames;
@@ -27,7 +25,7 @@ public class Laboratorio extends AbstractEntity {
 		super();
 		this.nome = nome;
 		this.endereco = endereco;
-		this.status = status;
+		super.status = status;
 	}
 
 	public String getNome() {
@@ -44,14 +42,6 @@ public class Laboratorio extends AbstractEntity {
 
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
-	}
-
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
 	}
 
 	public List<Exame> getExames() {

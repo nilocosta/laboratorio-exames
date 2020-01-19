@@ -20,12 +20,19 @@ public class Exame extends AbstractEntity {
 	@JsonInclude(Include.NON_NULL)
 	private String tipo;
 
-	@Column(columnDefinition = "integer default 1")
-	private Integer status;
-
 	@ManyToMany
 	@JoinTable(name = "laboratorio_exame", joinColumns = @JoinColumn(name = "exame_id"), inverseJoinColumns = @JoinColumn(name = "laboratorio_id"))
 	private List<Laboratorio> laboratorios;
+
+	public Exame() {
+	}
+
+	public Exame(String nome, String tipo, Integer status) {
+		super();
+		this.nome = nome;
+		this.tipo = tipo;
+		super.status = status;
+	}
 
 	public String getNome() {
 		return nome;
@@ -33,14 +40,6 @@ public class Exame extends AbstractEntity {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
 	}
 
 	public String getTipo() {
