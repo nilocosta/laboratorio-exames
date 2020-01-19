@@ -55,5 +55,5 @@ public class ExameRepositoryTest {
 		assertThrows(JpaObjectRetrievalFailureException.class, () -> {
 			exameRepository.getOne(exame.getId());
 		});
-	}	
+	}
 }
