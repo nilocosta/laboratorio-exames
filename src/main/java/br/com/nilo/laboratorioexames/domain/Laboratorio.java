@@ -2,42 +2,32 @@ package br.com.nilo.laboratorioexames.domain;
 
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @Entity
-public class Laboratorio {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-
-	@JsonInclude(Include.NON_NULL)
+public class Laboratorio extends AbstractEntity {
 	private String nome;
 
-	@JsonInclude(Include.NON_NULL)
 	private String endereco;
 
-	@Column(columnDefinition = "integer default 1")
 	private Integer status;
 
 	@ManyToMany(mappedBy = "laboratorios")
 	@JsonInclude(Include.NON_NULL)
 	private List<Exame> exames;
 
-	public Long getId() {
-		return id;
+	public Laboratorio() {
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public Laboratorio(String nome, String endereco, Integer status) {
+		super();
+		this.nome = nome;
+		this.endereco = endereco;
+		this.status = status;
 	}
 
 	public String getNome() {
