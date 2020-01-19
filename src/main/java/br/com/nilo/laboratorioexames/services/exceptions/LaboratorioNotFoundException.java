@@ -1,4 +1,4 @@
-package br.com.nilo.laboratorioexames.exception;
+package br.com.nilo.laboratorioexames.services.exceptions;
 
 public class LaboratorioNotFoundException extends RuntimeException {
 
