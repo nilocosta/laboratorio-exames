@@ -17,7 +17,7 @@ public class ExameRepositoryTest {
 	private ExameRepository exameRepository;
 	
 	private Exame persistirNovoExameDeTeste() {
-		return exameRepository.save(new Exame("Exame Exemplar", "analise clinica", 1));
+		return exameRepository.save(new Exame(null, "Exame Exemplar", "analise clinica", "ativo"));
 	}
 	
 	@Test
@@ -38,7 +38,7 @@ public class ExameRepositoryTest {
 		
 		exame.setNome("Exame Rotina");
 		exame.setTipo("imagem");
-		exame.setStatus(0);
+		exame.setStatus("inativo");
 		
 		assertThat(exame.getId()).isEqualTo(insert.getId());
 		assertThat(exame.getNome()).isEqualTo("Exame Rotina");

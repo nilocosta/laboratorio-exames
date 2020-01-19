@@ -19,7 +19,7 @@ public class LaboratorioRepositoryTest {
 	private LaboratorioRepository laboratorioRepository;
 	
 	private Laboratorio persistirNovoLaboratorioDeTeste() {
-		return laboratorioRepository.save(new Laboratorio("LabTeste", "Rua dos Testes", 1));
+		return laboratorioRepository.save(new Laboratorio(null, "LabTeste", "Rua dos Testes", "ativo"));
 	}
 	
 	@Test
@@ -40,7 +40,7 @@ public class LaboratorioRepositoryTest {
 		
 		laboratorio.setEndereco("Rua dos Alterados");
 		laboratorio.setNome("LabAlterado");
-		laboratorio.setStatus(0);
+		laboratorio.setStatus("inativo");
 		
 		assertThat(laboratorio.getId()).isEqualTo(insert.getId());
 		assertThat(laboratorio.getNome()).isEqualTo("LabAlterado");
@@ -57,5 +57,5 @@ public class LaboratorioRepositoryTest {
 		assertThrows(JpaObjectRetrievalFailureException.class, () -> {
 			laboratorioRepository.getOne(laboratorio.getId());
 		});
-	}	
+	}
 }
