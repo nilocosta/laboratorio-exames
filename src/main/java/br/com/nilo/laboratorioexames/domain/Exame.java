@@ -2,22 +2,18 @@ package br.com.nilo.laboratorioexames.domain;
 
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class Exame extends AbstractEntity {
-
-	@JsonInclude(Include.NON_NULL)
+	@NotEmpty(message = "Nome não pode estar em branco")
 	private String nome;
 
-	@JsonInclude(Include.NON_NULL)
+	@NotEmpty(message = "Nome não pode estar em branco")
 	private String tipo;
 
 	@ManyToMany

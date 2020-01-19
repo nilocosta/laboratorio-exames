@@ -19,11 +19,11 @@ public class AbstractEntity implements Serializable {
 		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public String getStatus() {
+		if (status == null) {
+			return null;
+		}
+		
 		switch (status) {
 		case 1:
 			return "ativo";

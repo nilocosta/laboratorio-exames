@@ -4,14 +4,18 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @Entity
-public class Laboratorio extends AbstractEntity {
+public class Laboratorio extends AbstractEntity {	
+	@NotEmpty(message = "Nome não pode estar em branco")
 	private String nome;
 
+	@NotEmpty(message = "Endereço não pode estar em branco")
 	private String endereco;
 
 	@ManyToMany(mappedBy = "laboratorios")
