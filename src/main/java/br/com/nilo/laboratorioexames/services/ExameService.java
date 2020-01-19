@@ -1,4 +1,4 @@
-package br.com.nilo.laboratorioexames.service;
+package br.com.nilo.laboratorioexames.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
