@@ -25,8 +25,14 @@ public class Laboratorio extends AbstractEntity {
 	public Laboratorio() {
 	}
 
-	public Laboratorio(String nome, String endereco, Integer status) {
-		super();
+	public Laboratorio(Long id, String nome, String endereco, String status) {
+		super.id = id;
+		this.nome = nome;
+		this.endereco = endereco;
+		super.status = status;
+	}
+	
+	public Laboratorio(String nome, String endereco, String status) {
 		this.nome = nome;
 		this.endereco = endereco;
 		super.status = status;

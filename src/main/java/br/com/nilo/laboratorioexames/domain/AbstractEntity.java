@@ -11,39 +11,24 @@ import javax.persistence.MappedSuperclass;
 public class AbstractEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	protected Long id;
 
-	protected Integer status;
+	protected String status;
 
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	public Long getId() {
 		return id;
 	}
 
 	public String getStatus() {
-		if (status == null) {
-			return null;
-		}
-		
-		switch (status) {
-		case 1:
-			return "ativo";
-		default:
-			return "inativo";
-		}
-	}
-
-	public void setStatus(Integer status) {
-		if (status == null || status == 1) {
-			this.status = 1;
-		}
-		this.status = 0;
+		return status;
 	}
 
 	public void setStatus(String status) {
-		if (status == null || status.isEmpty() || status.equalsIgnoreCase("ativo")) {
-			this.status = 1;
-		}
-		this.status = 0;
+		this.status = status;
 	}
 
 	@Override

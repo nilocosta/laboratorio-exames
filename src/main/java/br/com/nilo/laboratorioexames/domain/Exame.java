@@ -23,8 +23,8 @@ public class Exame extends AbstractEntity {
 	public Exame() {
 	}
 
-	public Exame(String nome, String tipo, Integer status) {
-		super();
+	public Exame(Long id, String nome, String tipo, String status) {
+		super.id = id;
 		this.nome = nome;
 		this.tipo = tipo;
 		super.status = status;
