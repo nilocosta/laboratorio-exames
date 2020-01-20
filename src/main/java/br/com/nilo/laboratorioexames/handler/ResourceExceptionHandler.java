@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import br.com.nilo.laboratorioexames.domain.DetalhesErro;
+import br.com.nilo.laboratorioexames.services.exceptions.ExameNotFoundException;
 import br.com.nilo.laboratorioexames.services.exceptions.IdCanNotBeNullException;
 import br.com.nilo.laboratorioexames.services.exceptions.LaboratorioNotFoundException;
 
@@ -29,7 +30,7 @@ public class ResourceExceptionHandler {
 	}
 
 	@ExceptionHandler(LaboratorioNotFoundException.class)
-	public ResponseEntity<DetalhesErro> LaboratorioNotFoundException(LaboratorioNotFoundException e,
+	public ResponseEntity<DetalhesErro> handleDLaboratorioNotFoundException(LaboratorioNotFoundException e,
 			HttpServletRequest request) {
 
 		DetalhesErro erro = new DetalhesErro();
@@ -41,8 +42,21 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
 	}
 	
+	@ExceptionHandler(ExameNotFoundException.class)
+	public ResponseEntity<DetalhesErro> handleDExameNotFoundException(ExameNotFoundException e,
+			HttpServletRequest request) {
+
+		DetalhesErro erro = new DetalhesErro();
+		erro.setStatus(404l);
+		erro.setTitle("O Exame não foi encontrado");
+		erro.setDeveloperMessage(e.getMessage());
+		erro.setTimestamp(System.currentTimeMillis());
+
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
+	}
+	
 	@ExceptionHandler(IdCanNotBeNullException.class)
-	public ResponseEntity<DetalhesErro> IdCanNotBeNullException(IdCanNotBeNullException e,
+	public ResponseEntity<DetalhesErro> handleDIdCanNotBeNullException(IdCanNotBeNullException e,
 			HttpServletRequest request) {
 
 		DetalhesErro erro = new DetalhesErro();
@@ -55,7 +69,7 @@ public class ResourceExceptionHandler {
 	}
 	
 	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
-	public ResponseEntity<DetalhesErro> MethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e,
+	public ResponseEntity<DetalhesErro> handleDMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e,
 			HttpServletRequest request) {
 
 		DetalhesErro erro = new DetalhesErro();
