@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import br.com.nilo.laboratorioexames.domain.DetalhesErro;
+import br.com.nilo.laboratorioexames.services.exceptions.ExameLaboratorioInactiveException;
 import br.com.nilo.laboratorioexames.services.exceptions.ExameNotFoundException;
 import br.com.nilo.laboratorioexames.services.exceptions.IdCanNotBeNullException;
 import br.com.nilo.laboratorioexames.services.exceptions.LaboratorioNotFoundException;
@@ -18,6 +19,19 @@ import br.com.nilo.laboratorioexames.services.exceptions.LaboratorioNotFoundExce
 public class ResourceExceptionHandler {
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	public ResponseEntity<DetalhesErro> handleDataIntegrityViolationException(DataIntegrityViolationException e,
+			HttpServletRequest request) {
+
+		DetalhesErro erro = new DetalhesErro();
+		erro.setStatus(400l);
+		erro.setTitle("Requisição Inválida");
+		erro.setDeveloperMessage(e.getMessage());
+		erro.setTimestamp(System.currentTimeMillis());
+
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
+	}
+	
+	@ExceptionHandler(ExameLaboratorioInactiveException.class)
+	public ResponseEntity<DetalhesErro> handleExameLaboratorioInactiveException(ExameLaboratorioInactiveException e,
 			HttpServletRequest request) {
 
 		DetalhesErro erro = new DetalhesErro();

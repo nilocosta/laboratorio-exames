@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -35,8 +36,8 @@ public class LaboratorioResource {
 		return ResponseEntity.status(HttpStatus.OK).body(laboratorio);
 	}
 
-	@RequestMapping(value = "/status/{status}", method = RequestMethod.GET)
-	public ResponseEntity<?> findById(@PathVariable("status") String status) {
+	@RequestMapping(value = "", method = RequestMethod.GET)
+	public ResponseEntity<?> findByStatus(@RequestParam(name = "status") String status) {
 		List<Laboratorio> laboratorios = laboratorioService.findByStatus(status);
 		return ResponseEntity.status(HttpStatus.OK).body(laboratorios);
 	}
@@ -74,10 +75,10 @@ public class LaboratorioResource {
 		return ResponseEntity.noContent().build();
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
-	public ResponseEntity<Void> partialUpdate(@RequestBody Laboratorio laboratorio, @PathVariable("id") Long id) {
-		laboratorio.setId(id);
-		laboratorioService.save(laboratorio);
+	@RequestMapping(value = "/{idLaboratorio}/exames/{idExame}", method = RequestMethod.PATCH)
+	public ResponseEntity<Void> addExameToLab(@PathVariable("idLaboratorio") Long idLaboratorio,
+			@PathVariable("idExame") Long idExame) {
+		laboratorioService.addExameToLab(idLaboratorio, idExame);
 
 		return ResponseEntity.noContent().build();
 	}
@@ -91,6 +92,13 @@ public class LaboratorioResource {
 	@RequestMapping(value = "/lote/", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> deleteAll(@RequestBody List<Laboratorio> laboratorios) {
 		laboratorioService.delete(laboratorios);
+		return ResponseEntity.noContent().build();
+	}
+
+	@RequestMapping(value = "/{idLaboratorio}/exames/{idExame}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> removeExameOfLab(@PathVariable("idLaboratorio") Long idLaboratorio,
+			@PathVariable("idExame") Long idExame) {
+		laboratorioService.removeExameOfLab(idLaboratorio, idExame);
 		return ResponseEntity.noContent().build();
 	}
 }

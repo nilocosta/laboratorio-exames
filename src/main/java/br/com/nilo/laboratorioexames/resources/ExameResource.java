@@ -1,6 +1,7 @@
 package br.com.nilo.laboratorioexames.resources;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -35,9 +37,18 @@ public class ExameResource {
 		return ResponseEntity.status(HttpStatus.OK).body(exame);
 	}
 
-	@RequestMapping(value = "/status/{status}", method = RequestMethod.GET)
-	public ResponseEntity<?> findById(@PathVariable("status") String status) {
-		List<Exame> exames = exameService.findByStatus(status);
+	@RequestMapping(value = "", method = RequestMethod.GET)
+	public ResponseEntity<?> findByFilter(@RequestParam(name = "nome", required = false) String nome,
+			@RequestParam(name = "status", required = false) String status) {
+		List<Exame> exames = new ArrayList<>();
+		if (nome != null) {
+			exames = exameService.findByNome(nome);
+		}
+
+		if (status != null) {
+			exames = exameService.findByStatus(status);
+		}
+
 		return ResponseEntity.status(HttpStatus.OK).body(exames);
 	}
 
@@ -69,14 +80,6 @@ public class ExameResource {
 	@RequestMapping(value = "/lote/", method = RequestMethod.PUT)
 	public ResponseEntity<Void> updateAll(@Valid @RequestBody List<Exame> exames) {
 		exameService.updateAll(exames);
-
-		return ResponseEntity.noContent().build();
-	}
-
-	@RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
-	public ResponseEntity<Void> partialUpdate(@RequestBody Exame exame, @PathVariable("id") Long id) {
-		exame.setId(id);
-		exameService.save(exame);
 
 		return ResponseEntity.noContent().build();
 	}

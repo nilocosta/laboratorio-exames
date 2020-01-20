@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.nilo.laboratorioexames.domain.Exame;
 import br.com.nilo.laboratorioexames.repository.ExameRepository;
+import br.com.nilo.laboratorioexames.repository.LaboratorioRepository;
 import br.com.nilo.laboratorioexames.services.exceptions.ExameNotFoundException;
 import br.com.nilo.laboratorioexames.services.exceptions.IdCanNotBeNullException;
 
@@ -17,6 +18,9 @@ import br.com.nilo.laboratorioexames.services.exceptions.IdCanNotBeNullException
 public class ExameService {
 	@Autowired
 	ExameRepository exameRepository;
+
+	@Autowired
+	LaboratorioRepository laboratorioRepository;
 
 	public List<Exame> findAll() {
 		return exameRepository.findAll();
@@ -39,21 +43,20 @@ public class ExameService {
 			throw new IdCanNotBeNullException("O campo id não pode estar vazio.");
 		}
 
-		return exameRepository.findOne(Example.of(new Exame(exame.getId())))
-				.orElseThrow(() -> new ExameNotFoundException(
-						String.format("O exame com a id %s não existe", exame.getId())));
+		return exameRepository.findOne(Example.of(new Exame(exame.getId()))).orElseThrow(
+				() -> new ExameNotFoundException(String.format("O exame com a id %s não existe", exame.getId())));
 	}
 
 	public Exame save(Exame exame) {
 		if (exame.getId() == null) {
 			exame.setStatus("ativo");
 		} else {
-			findById(exame).mergeExame(exame);
+			exame = findById(exame).mergeExame(exame);
 		}
 
 		if (exame.getStatus() == null || !exame.getStatus().equalsIgnoreCase("ativo")) {
 			exame.setStatus("inativo");
-		}
+		}		
 
 		return exameRepository.save(exame);
 	}
@@ -86,7 +89,6 @@ public class ExameService {
 	}
 
 	public void delete(Exame exame) {
-		findById(exame);
 		exameRepository.delete(findById(exame));
 	}
 
@@ -98,5 +100,17 @@ public class ExameService {
 		exames.forEach(exame -> {
 			delete(exame);
 		});
+	}
+
+	public List<Exame> findByNome(String nome) {
+		Exame exame = new Exame();
+		exame.setNome(nome);
+
+		ExampleMatcher customExampleMatcher = ExampleMatcher.matchingAny().withMatcher("nome",
+				ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase());
+
+		Example<Exame> example = Example.of(exame, customExampleMatcher);
+
+		return exameRepository.findAll(example);
 	}
 }

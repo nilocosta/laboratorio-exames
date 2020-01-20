@@ -8,7 +8,13 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Exame extends AbstractEntity {
 	@NotEmpty(message = "Nome não pode estar em branco")
 	private String nome;
@@ -18,11 +24,12 @@ public class Exame extends AbstractEntity {
 
 	@ManyToMany
 	@JoinTable(name = "laboratorio_exame", joinColumns = @JoinColumn(name = "exame_id"), inverseJoinColumns = @JoinColumn(name = "laboratorio_id"))
+	@JsonInclude(Include.NON_EMPTY)
 	private List<Laboratorio> laboratorios;
 
 	public Exame() {
 	}
-	
+
 	public Exame(Long id) {
 		super.id = id;
 	}
@@ -33,13 +40,23 @@ public class Exame extends AbstractEntity {
 		this.tipo = tipo;
 		super.status = status;
 	}
-	
+
 	public Exame mergeExame(Exame exame) {
-		exame.nome = exame.nome == null ? this.nome : exame.nome;
-		exame.tipo = exame.tipo == null ? this.tipo : exame.tipo; 
-		exame.status = exame.status == null ? this.status : exame.status;
-		
-		return exame;
+		this.nome = exame.nome != null && !exame.nome.equals(this.nome) ? exame.nome : this.nome;
+		this.tipo = exame.tipo != null && !exame.tipo.equals(this.tipo) ? exame.tipo : this.tipo;
+		this.status = exame.status != null && !exame.status.equals(this.status) ? exame.status : this.status;
+
+		return this;
+	}
+
+	public void addLaboratorio(Laboratorio laboratorio) {
+		this.laboratorios.add(laboratorio);
+		laboratorio.getExames().add(this);
+	}
+
+	public void removeLaboratorio(Laboratorio laboratorio) {
+		this.laboratorios.remove(laboratorio);
+		laboratorio.getExames().remove(this);
 	}
 
 	public String getNome() {

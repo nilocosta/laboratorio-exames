@@ -1,5 +1,6 @@
 package br.com.nilo.laboratorioexames.services;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,10 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
+import br.com.nilo.laboratorioexames.domain.Exame;
 import br.com.nilo.laboratorioexames.domain.Laboratorio;
 import br.com.nilo.laboratorioexames.repository.LaboratorioRepository;
+import br.com.nilo.laboratorioexames.services.exceptions.ExameLaboratorioInactiveException;
 import br.com.nilo.laboratorioexames.services.exceptions.IdCanNotBeNullException;
 import br.com.nilo.laboratorioexames.services.exceptions.LaboratorioNotFoundException;
 
@@ -17,6 +20,9 @@ import br.com.nilo.laboratorioexames.services.exceptions.LaboratorioNotFoundExce
 public class LaboratorioService {
 	@Autowired
 	LaboratorioRepository laboratorioRepository;
+
+	@Autowired
+	ExameService exameService;
 
 	public List<Laboratorio> findAll() {
 		return laboratorioRepository.findAll();
@@ -48,7 +54,7 @@ public class LaboratorioService {
 		if (laboratorio.getId() == null) {
 			laboratorio.setStatus("ativo");
 		} else {
-			findById(laboratorio).mergeLaboratorio(laboratorio);
+			findById(laboratorio);
 		}
 
 		if (laboratorio.getStatus() == null || !laboratorio.getStatus().equalsIgnoreCase("ativo")) {
@@ -61,7 +67,8 @@ public class LaboratorioService {
 	public void createAll(List<Laboratorio> laboratorios) {
 		laboratorios.forEach(laboratorio -> {
 			if (laboratorio.getId() != null) {
-				throw new DataIntegrityViolationException("Para a inserção em lote, IDs não devem ser declarados no corpo da requisição");
+				throw new DataIntegrityViolationException(
+						"Para a inserção em lote, IDs não devem ser declarados no corpo da requisição");
 			}
 		});
 
@@ -84,8 +91,11 @@ public class LaboratorioService {
 		return laboratorios;
 	}
 
-	public void delete(Laboratorio laboratorio) {
-		findById(laboratorio);
+	public void delete(Laboratorio labTarget) {
+		Laboratorio laboratorio = findById(labTarget);
+		
+		laboratorio.getExames().forEach(exame -> exame.getLaboratorios().remove(laboratorio));
+		
 		laboratorioRepository.delete(findById(laboratorio));
 	}
 
@@ -97,5 +107,29 @@ public class LaboratorioService {
 		laboratorios.forEach(laboratorio -> {
 			delete(laboratorio);
 		});
+	}
+
+	public void addExameToLab(Long idLaboratorio, Long idExame) {
+		Laboratorio laboratorio = findById(new Laboratorio(idLaboratorio));
+		Exame exame = exameService.findById(new Exame(idExame));
+		
+		if (!laboratorio.getStatus().equals("ativo") || !exame.getStatus().equals("ativo")) {
+			throw new ExameLaboratorioInactiveException("O relacionamento entre exame e laboratório só pode ocorrer quando ambos estiverem ativos");
+		}
+		
+		laboratorio.addExame(exame);
+		laboratorioRepository.save(laboratorio);
+	}
+	
+	public void removeExameOfLab(Long idLaboratorio, Long idExame) {
+		Laboratorio laboratorio = findById(new Laboratorio(idLaboratorio));
+		Exame exame = exameService.findById(new Exame(idExame));
+		
+		if (!laboratorio.getStatus().equals("ativo") || !exame.getStatus().equals("ativo")) {
+			throw new ExameLaboratorioInactiveException("O relacionamento entre exame e laboratório só pode ocorrer quando ambos estiverem ativos");
+		}
+		
+		laboratorio.removeExame(exame);
+		laboratorioRepository.save(laboratorio);
 	}
 }

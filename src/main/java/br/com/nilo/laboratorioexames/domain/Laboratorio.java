@@ -5,13 +5,16 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-public class Laboratorio extends AbstractEntity {	
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public class Laboratorio extends AbstractEntity {
 	@NotEmpty(message = "Nome não pode estar em branco")
 	private String nome;
 
@@ -19,7 +22,7 @@ public class Laboratorio extends AbstractEntity {
 	private String endereco;
 
 	@ManyToMany(mappedBy = "laboratorios")
-	@JsonInclude(Include.NON_NULL)
+	@JsonInclude(Include.NON_EMPTY)
 	private List<Exame> exames;
 
 	public Laboratorio() {
@@ -31,23 +34,15 @@ public class Laboratorio extends AbstractEntity {
 		this.endereco = endereco;
 		super.status = status;
 	}
-	
+
 	public Laboratorio(Long id) {
 		super.id = id;
 	}
-	
+
 	public Laboratorio(String nome, String endereco, String status) {
 		this.nome = nome;
 		this.endereco = endereco;
 		super.status = status;
-	}
-	
-	public Laboratorio mergeLaboratorio(Laboratorio laboratorio) {
-		laboratorio.nome = laboratorio.nome == null ? this.nome : laboratorio.nome;
-		laboratorio.endereco = laboratorio.endereco == null ? this.endereco : laboratorio.endereco; 
-		laboratorio.status = laboratorio.status == null ? this.status : laboratorio.status;
-		
-		return laboratorio;
 	}
 
 	public String getNome() {
@@ -66,6 +61,7 @@ public class Laboratorio extends AbstractEntity {
 		this.endereco = endereco;
 	}
 
+	@JsonIgnore
 	public List<Exame> getExames() {
 		return exames;
 	}
@@ -74,4 +70,13 @@ public class Laboratorio extends AbstractEntity {
 		this.exames = exames;
 	}
 
+	public void addExame(Exame exame) {
+		this.exames.add(exame);
+		exame.getLaboratorios().add(this);
+	}
+
+	public void removeExame(Exame exame) {
+		this.exames.remove(exame);
+		exame.getLaboratorios().remove(this);
+	}
 }
