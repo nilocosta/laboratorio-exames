@@ -1,0 +1,351 @@
+{
+	"variables": [],
+	"info": {
+		"name": "LaboratorioExameExamples",
+		"_postman_id": "a2caba33-f833-a503-5bfa-9d6f3b8c2462",
+		"description": "Testes de API do endpoint laboratorios e exames",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "laboratorio endpoints",
+			"description": "Todos os serviços de endpoint do laboratorios",
+			"item": [
+				{
+					"name": "localhost:8080/laboratorios",
+					"request": {
+						"url": "localhost:8080/laboratorios",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\":\"Lab de Teste\",\n\t\"endereco\":\"Rua dos Testes, 111\",\n\t\"status\":\"ativo\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/laboratorios/1",
+					"request": {
+						"url": "localhost:8080/laboratorios/1",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/laboratorios/",
+					"request": {
+						"url": "localhost:8080/laboratorios/",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/laboratorios/1",
+					"request": {
+						"url": "localhost:8080/laboratorios/1",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":2,\n\t\"nome\":\"Laboratorio de Teste updated\",\n\t\"endereco\":\"Rua Endereço de Testes, 141 updated\",\n\t\"status\":\"inativo\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/laboratorios/lote/",
+					"request": {
+						"url": "localhost:8080/laboratorios/lote/",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"nome\":\"Laboratorio de Teste Lote 1\",\n\t\"endereco\":\"Rua Endereço de Testes, 141 Lote\",\n\t\"status\":\"ativo\"\n},\n{\n\t\"nome\":\"Laboratorio de Teste Lote 2\",\n\t\"endereco\":\"Rua Endereço de Testes, 241 Lote\",\n\t\"status\":\"ativo\"\n},\n{\n\t\"nome\":\"Laboratorio de Teste Lote 3\",\n\t\"endereco\":\"Rua Endereço de Testes, 341 Lote\",\n\t\"status\":\"ativo\"\n},\n{\n\t\"nome\":\"Laboratorio de Teste Lote 4\",\n\t\"endereco\":\"Rua Endereço de Testes, 441 Lote\",\n\t\"status\":\"ativo\"\n}]"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/laboratorios/1",
+					"request": {
+						"url": "localhost:8080/laboratorios/1",
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\":\"Laboratorio de Teste patch\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/laboratorios/lote/",
+					"request": {
+						"url": "localhost:8080/laboratorios/lote/",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n[{\n\t\"id\":1,\n\t\"nome\":\"Laboratorio de Teste 1 1\",\n\t\"endereco\":\"Rua Endereço de Testes, 141\",\n\t\"status\":\"ativo\"\n},\n{\n\t\"id\":2,\n\t\"nome\":\"Laboratorio de Teste 2 2\",\n\t\"endereco\":\"Rua Endereço de Testes, 241\",\n\t\"status\":\"inativo\"\n},\n{\n\t\"id\":3,\n\t\"nome\":\"Laboratorio de Teste 3 3\",\n\t\"endereco\":\"Rua Endereço de Testes, 341\",\n\t\"status\":\"ativo\"\n},\n{\n\t\"id\":4,\n\t\"nome\":\"Laboratorio de Teste 4 4\",\n\t\"endereco\":\"Rua Endereço de Testes, 441\",\n\t\"status\":\"inativo\"\n}]"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/laboratorios/status/ativo",
+					"request": {
+						"url": "localhost:8080/laboratorios/status/ativo",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/laboratorios/5",
+					"request": {
+						"url": "localhost:8080/laboratorios/5",
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/laboratorios/lote/",
+					"request": {
+						"url": "localhost:8080/laboratorios/lote/",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n\t{\"id\":2},\n\t{\"id\":3}\n]"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "exame endpoints",
+			"description": "",
+			"item": [
+				{
+					"name": "localhost:8080/exames",
+					"request": {
+						"url": "localhost:8080/exames",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\":\"Exame de Teste 1\",\n\t\"tipo\":\"analise clínica\",\n\t\"status\":\"ativo\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/exames/",
+					"request": {
+						"url": "localhost:8080/exames/",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/exames/1",
+					"request": {
+						"url": "localhost:8080/exames/1",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/exames/1",
+					"request": {
+						"url": "localhost:8080/exames/1",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\":\"Exame de Teste updated\",\n\t\"tipo\":\"teste\",\n\t\"status\":\"inativo\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/exames/lote/",
+					"request": {
+						"url": "localhost:8080/exames/lote/",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"nome\":\"Exame 1\",\n\t\"tipo\":\"imagem\",\n\t\"status\":\"ativo\"\n},\n{\n\t\"nome\":\"Exame 2\",\n\t\"tipo\":\"imagem\",\n\t\"status\":\"ativo\"\n},\n{\n\t\"nome\":\"Exame 3\",\n\t\"tipo\":\"analise clínica\",\n\t\"status\":\"ativo\"\n},\n{\n\t\"nome\":\"Exame 4\",\n\t\"tipo\":\"analise clínica\",\n\t\"status\":\"ativo\"\n}\n]"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/exames/1",
+					"request": {
+						"url": "localhost:8080/exames/1",
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\":\"Laboratorio de Teste patch\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/exames/lote/",
+					"request": {
+						"url": "localhost:8080/exames/lote/",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n[{\n\t\"id\":1,\n\t\"nome\":\"Exame update lote 1\",\n\t\"tipo\":\"analise clinica\",\n\t\"status\":\"ativo\"\n},\n{\n\t\"id\":2,\n\t\"nome\":\"Exame update lote 2\",\n\t\"endereco\":\"imagem\",\n\t\"status\":\"inativo\"\n},\n{\n\t\"id\":3,\n\t\"nome\":\"Exame update lote 3\",\n\t\"endereco\":\"imagem\",\n\t\"status\":\"ativo\"\n},\n{\n\t\"id\":4,\n\t\"nome\":\"Exame update lote 4\",\n\t\"endereco\":\"analise clinica\",\n\t\"status\":\"inativo\"\n}]"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/exames/status/ativo",
+					"request": {
+						"url": "localhost:8080/exames/status/ativo",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/exames/5",
+					"request": {
+						"url": "localhost:8080/exames/5",
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/exames/lote/",
+					"request": {
+						"url": "localhost:8080/exames/lote/",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n\t{\"id\":2},\n\t{\"id\":3}\n]"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

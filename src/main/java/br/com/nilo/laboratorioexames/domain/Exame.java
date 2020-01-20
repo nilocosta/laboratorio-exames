@@ -22,12 +22,24 @@ public class Exame extends AbstractEntity {
 
 	public Exame() {
 	}
+	
+	public Exame(Long id) {
+		super.id = id;
+	}
 
 	public Exame(Long id, String nome, String tipo, String status) {
 		super.id = id;
 		this.nome = nome;
 		this.tipo = tipo;
 		super.status = status;
+	}
+	
+	public Exame mergeExame(Exame exame) {
+		exame.nome = exame.nome == null ? this.nome : exame.nome;
+		exame.tipo = exame.tipo == null ? this.tipo : exame.tipo; 
+		exame.status = exame.status == null ? this.status : exame.status;
+		
+		return exame;
 	}
 
 	public String getNome() {
