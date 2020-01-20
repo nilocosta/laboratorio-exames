@@ -134,9 +134,27 @@
 					"response": []
 				},
 				{
-					"name": "localhost:8080/laboratorios/status/ativo",
+					"name": "localhost:8080/laboratorios?status=ativo",
 					"request": {
-						"url": "localhost:8080/laboratorios/status/ativo",
+						"url": {
+							"raw": "localhost:8080/laboratorios?status=ativo",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"laboratorios"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "ativo",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
 						"method": "GET",
 						"header": [],
 						"body": {},
@@ -171,6 +189,28 @@
 							"mode": "raw",
 							"raw": "[\n\t{\"id\":2},\n\t{\"id\":3}\n]"
 						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/laboratorios/1/exames/2",
+					"request": {
+						"url": "localhost:8080/laboratorios/1/exames/2",
+						"method": "PATCH",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/laboratorios/1/exames/2",
+					"request": {
+						"url": "localhost:8080/laboratorios/1/exames/2",
+						"method": "DELETE",
+						"header": [],
+						"body": {},
 						"description": ""
 					},
 					"response": []
@@ -304,17 +344,6 @@
 					"response": []
 				},
 				{
-					"name": "localhost:8080/exames/status/ativo",
-					"request": {
-						"url": "localhost:8080/exames/status/ativo",
-						"method": "GET",
-						"header": [],
-						"body": {},
-						"description": ""
-					},
-					"response": []
-				},
-				{
 					"name": "localhost:8080/exames/5",
 					"request": {
 						"url": "localhost:8080/exames/5",
@@ -341,6 +370,64 @@
 							"mode": "raw",
 							"raw": "[\n\t{\"id\":2},\n\t{\"id\":3}\n]"
 						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/exames?status=ativo",
+					"request": {
+						"url": {
+							"raw": "localhost:8080/exames?status=inativo",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"exames"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "inativo",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/exames?nome=teste",
+					"request": {
+						"url": {
+							"raw": "localhost:8080/exames?nome=teste",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"exames"
+							],
+							"query": [
+								{
+									"key": "nome",
+									"value": "teste",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
 						"description": ""
 					},
 					"response": []
