@@ -37,7 +37,7 @@ public class LaboratorioResource {
 
 	@RequestMapping(value = "/status/{status}", method = RequestMethod.GET)
 	public ResponseEntity<?> findById(@PathVariable("status") String status) {
-	List<Laboratorio> laboratorios = laboratorioService.findByStatus(status);
+		List<Laboratorio> laboratorios = laboratorioService.findByStatus(status);
 		return ResponseEntity.status(HttpStatus.OK).body(laboratorios);
 	}
 
@@ -51,8 +51,8 @@ public class LaboratorioResource {
 
 		return ResponseEntity.created(uri).build();
 	}
-	
-	@RequestMapping(value = "/lote/",method = RequestMethod.POST)
+
+	@RequestMapping(value = "/lote/", method = RequestMethod.POST)
 	public ResponseEntity<Void> createAll(@Valid @RequestBody List<Laboratorio> laboratorios) {
 		laboratorioService.createAll(laboratorios);
 
@@ -61,18 +61,19 @@ public class LaboratorioResource {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> update(@Valid @RequestBody Laboratorio laboratorio, @PathVariable("id") Long id) {
+		laboratorio.setId(id);
 		laboratorioService.save(laboratorio);
 
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	@RequestMapping(value = "/lote/", method = RequestMethod.PUT)
 	public ResponseEntity<Void> updateAll(@Valid @RequestBody List<Laboratorio> laboratorios) {
 		laboratorioService.updateAll(laboratorios);
 
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
 	public ResponseEntity<Void> partialUpdate(@RequestBody Laboratorio laboratorio, @PathVariable("id") Long id) {
 		laboratorio.setId(id);
@@ -86,7 +87,7 @@ public class LaboratorioResource {
 		laboratorioService.delete(new Laboratorio(id));
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	@RequestMapping(value = "/lote/", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> deleteAll(@RequestBody List<Laboratorio> laboratorios) {
 		laboratorioService.delete(laboratorios);
