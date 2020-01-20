@@ -13,6 +13,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Exame extends AbstractEntity {
@@ -25,6 +27,7 @@ public class Exame extends AbstractEntity {
 	@ManyToMany
 	@JoinTable(name = "laboratorio_exame", joinColumns = @JoinColumn(name = "exame_id"), inverseJoinColumns = @JoinColumn(name = "laboratorio_id"))
 	@JsonInclude(Include.NON_EMPTY)
+	@ApiModelProperty(hidden = true)
 	private List<Laboratorio> laboratorios;
 
 	public Exame() {
