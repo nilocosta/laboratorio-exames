@@ -2,20 +2,20 @@ package br.com.nilo.laboratorioexames.domain;
 
 public class DetalhesErro {
 
-	private String titulo;
+	private String title;
 
 	private Long status;
 
 	private Long timestamp;
 
-	private String mensagemDesenvolvedor;
+	private String developerMessage;
 
-	public String getTitulo() {
-		return titulo;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public Long getStatus() {
@@ -34,12 +34,11 @@ public class DetalhesErro {
 		this.timestamp = timestamp;
 	}
 
-	public String getMensagemDesenvolvedor() {
-		return mensagemDesenvolvedor;
+	public String getDeveloperMessage() {
+		return developerMessage;
 	}
 
-	public void setMensagemDesenvolvedor(String mensagemDesenvolvedor) {
-		this.mensagemDesenvolvedor = mensagemDesenvolvedor;
+	public void setDeveloperMessage(String developerMessage) {
+		this.developerMessage = developerMessage;
 	}
-
 }

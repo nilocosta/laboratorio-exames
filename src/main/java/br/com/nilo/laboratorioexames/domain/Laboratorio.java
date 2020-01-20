@@ -32,10 +32,22 @@ public class Laboratorio extends AbstractEntity {
 		super.status = status;
 	}
 	
+	public Laboratorio(Long id) {
+		super.id = id;
+	}
+	
 	public Laboratorio(String nome, String endereco, String status) {
 		this.nome = nome;
 		this.endereco = endereco;
 		super.status = status;
+	}
+	
+	public Laboratorio mergeLaboratorio(Laboratorio laboratorio) {
+		laboratorio.nome = laboratorio.nome == null ? this.nome : laboratorio.nome;
+		laboratorio.endereco = laboratorio.endereco == null ? this.endereco : laboratorio.endereco; 
+		laboratorio.status = laboratorio.status == null ? this.status : laboratorio.status;
+		
+		return laboratorio;
 	}
 
 	public String getNome() {
